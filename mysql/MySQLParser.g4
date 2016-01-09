@@ -25,7 +25,7 @@ table_alias
    ;
 
 column_name
-   : ( ( schema_name DOT )? ID DOT )? ID ( column_name_alias )? | ( table_alias DOT )? ID | USER_VAR ( column_name_alias )?
+   : ASTERISK | ( ( schema_name DOT )? ID DOT )? ID ( column_name_alias )? | ( table_alias DOT )? ID | USER_VAR ( column_name_alias )?
    ;
 
 column_name_alias
@@ -60,8 +60,24 @@ expression
    : simple_expression ( expr_op simple_expression )*
    ;
 
+parameter
+   : unnamed_parameter | named_parameter
+   ;
+
+unnamed_parameter
+   : QUESTION_MARK
+   ;
+
+named_parameter
+   : ( COLON ID )
+   ;
+
+single_quoted_element
+   : SINGLE_QUOTED_STRING
+   ;
+
 element
-   : USER_VAR | ID | ( '|' ID '|' ) | INT | column_name
+   : USER_VAR | ID | ( '|' ID '|' ) | INT | column_name | parameter | single_quoted_element
    ;
 
 right_element

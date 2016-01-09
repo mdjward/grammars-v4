@@ -4,97 +4,97 @@ lexer grammar MySQLLexer;
  }
 
 SELECT
-   : 'select'
+   : 'select' | 'SELECT'
    ;
 
 
 FROM
-   : 'from'
+   : 'from' | 'FROM'
    ;
 
 
 WHERE
-   : 'where'
+   : 'where' | 'WHERE'
    ;
 
 
 AND
-   : 'and' | '&&'
+   : 'and' | 'AND' | '&&'
    ;
 
 
 OR
-   : 'or' | '||'
+   : 'or' | 'OR' | '||'
    ;
 
 
 XOR
-   : 'xor'
+   : 'xor' | 'XOR'
    ;
 
 
 IS
-   : 'is'
+   : 'is' | 'IS'
    ;
 
 
 NULL
-   : 'null'
+   : 'null' | 'NULL'
    ;
 
 
 LIKE
-   : 'like'
+   : 'like' | 'LIKE'
    ;
 
 
 IN
-   : 'in'
+   : 'in' | 'IN'
    ;
 
 
 EXISTS
-   : 'exists'
+   : 'exists' | 'EXISTS'
    ;
 
 
 ALL
-   : 'all'
+   : 'all' | 'ALL'
    ;
 
 
 ANY
-   : 'any'
+   : 'any' | 'ANY'
    ;
 
 
 TRUE
-   : 'true'
+   : 'true' | 'TRUE'
    ;
 
 
 FALSE
-   : 'false'
+   : 'false' | 'FALSE'
    ;
 
 
 DIVIDE
-   : 'div' | '/'
+   : 'div' | 'DIV' | '/'
    ;
 
 
 MOD
-   : 'mod' | '%'
+   : 'mod' | 'MOD' | '%'
    ;
 
 
 BETWEEN
-   : 'between'
+   : 'between' | 'BETWEEN'
    ;
 
 
 REGEXP
-   : 'regexp'
+   : 'regexp' | 'REGEXP'
    ;
 
 
@@ -129,7 +129,7 @@ POWER_OP
 
 
 BINARY
-   : 'binary'
+   : 'binary' | 'BINARY'
    ;
 
 
@@ -175,6 +175,11 @@ LBRACK
 
 COLON
    : ':'
+   ;
+
+
+QUESTION_MARK
+   : '?'
    ;
 
 
@@ -233,108 +238,113 @@ DOT
    ;
 
 
+SINGLE_QUOTE
+   : '\''
+   ;
+
+
 COLLATE
-   : 'collate'
+   : 'collate' | 'COLLATE'
    ;
 
 
 INNER
-   : 'inner'
+   : 'inner' | 'INNER'
    ;
 
 
 OUTER
-   : 'outer'
+   : 'outer' | 'OUTER'
    ;
 
 
 JOIN
-   : 'join'
+   : 'join' | 'JOIN'
    ;
 
 
 CROSS
-   : 'cross'
+   : 'cross' | 'CROSS'
    ;
 
 
 USING
-   : 'using'
+   : 'using' | 'USING'
    ;
 
 
 INDEX
-   : 'index'
+   : 'index' | 'INDEX'
    ;
 
 
 KEY
-   : 'key'
+   : 'key' | 'KEY'
    ;
 
 
 ORDER
-   : 'order'
+   : 'order' | 'ORDER'
    ;
 
 
 GROUP
-   : 'group'
+   : 'group' | 'GROUP'
    ;
 
 
 BY
-   : 'by'
+   : 'by' | 'BY'
    ;
 
 
 FOR
-   : 'for'
+   : 'for' | 'FOR'
    ;
 
 
 USE
-   : 'use'
+   : 'use' | 'USE'
    ;
 
 
 IGNORE
-   : 'ignore'
+   : 'ignore' | 'IGNORE'
    ;
 
 
 PARTITION
-   : 'partition'
+   : 'partition' | 'PARTITION'
    ;
 
 
 STRAIGHT_JOIN
-   : 'straight_join'
+   : 'straight_join' | 'STRAIGHT_JOIN'
    ;
 
 
 NATURAL
-   : 'natural'
+   : 'natural' | 'NATURAL'
    ;
 
 
 LEFT
-   : 'left'
+   : 'left' | 'LEFT'
    ;
 
 
 RIGHT
-   : 'right'
+   : 'right' | 'RIGHT'
    ;
 
 
 OJ
-   : 'oj'
+   : 'oj' | 'OJ'
    ;
 
 
 ON
-   : 'on'
+   : 'on' | 'ON'
    ;
 
 
@@ -360,6 +370,11 @@ WS
 
 USER_VAR
    : '@' ( USER_VAR_SUBFIX1 | USER_VAR_SUBFIX2 | USER_VAR_SUBFIX3 | USER_VAR_SUBFIX4 )
+   ;
+
+
+SINGLE_QUOTED_STRING
+   : '\'' ( ~ '"')* '\''
    ;
 
 
