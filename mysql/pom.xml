@@ -17,7 +17,7 @@
 				<artifactId>antlr4-maven-plugin</artifactId>
 				<version>${antlr.version}</version>
 				<configuration>
-					<sourceDirectory>${basedir}</sourceDirectory>
+					<sourceDirectory>${basedir}/src/main</sourceDirectory>
 					<grammars>MySQL.g4</grammars>
 					<visitor>true</visitor>
 					<listener>true</listener>
@@ -37,8 +37,7 @@
 					<verbose>false</verbose>
 					<showTree>false</showTree>
 					<entryPoint>stat</entryPoint>
-					<grammarName>MySQL</grammarName>
-					<packageName></packageName>
+					<grammarName>org.antlr.grammarv4.mysql.MySQL</grammarName>
 					<exampleFiles>examples/</exampleFiles>
 				</configuration>
 				<executions>
