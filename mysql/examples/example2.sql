@@ -1,2 +1,1 @@
-select fff from bob.sam
-
+select fff from bob.sam ORDER BY fff

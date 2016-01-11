@@ -298,6 +298,16 @@ BY
    ;
 
 
+HAVING
+   : 'having' | 'HAVING'
+   ;
+
+
+LIMIT
+   : 'limit' | 'LIMIT'
+   ;
+
+
 FOR
    : 'for' | 'FOR'
    ;
@@ -353,13 +363,13 @@ ON
    ;
 
 
-ID
-   : ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_'  )+
+INT
+   : [0-9]+
    ;
 
 
-INT
-   : '0' .. '9'+
+ID
+   : [a-zA-Z0-9_]+
    ;
 
 

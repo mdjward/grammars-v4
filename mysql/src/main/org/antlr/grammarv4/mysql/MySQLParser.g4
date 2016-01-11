@@ -13,7 +13,7 @@ schema_name
    ;
 
 select_clause
-   : SELECT column_list_clause ( FROM table_references )? ( where_clause )?
+   : SELECT column_list_clause ( FROM table_references )? ( where_clause )? ( group_by_clause )? ( limit_clause )? ( SEMI )?
    ;
 
 table_name
@@ -77,7 +77,15 @@ single_quoted_element
    ;
 
 element
-   : USER_VAR | ID | ( '|' ID '|' ) | INT | column_name | parameter | single_quoted_element
+   : USER_VAR | ID | ( '|' ID '|' ) | INT | column_name | parameter | single_quoted_element | function_call
+   ;
+
+function_call
+   : ID LPAREN ( function_call_parameter (COMMA function_call_parameter)* )? RPAREN
+   ;
+
+function_call_parameter
+   : element
    ;
 
 right_element
@@ -182,4 +190,16 @@ subquery_alias
 
 subquery
    : LPAREN select_clause RPAREN
+   ;
+
+group_by_clause
+   : GROUP BY column_list_clause (having_clause)?
+   ;
+
+having_clause
+   : HAVING expression
+   ;
+
+limit_clause
+   : LIMIT INT
    ;

@@ -1,2 +1,1 @@
-select a from b;
-
+select a from b; select b from a limit 2, 3;
