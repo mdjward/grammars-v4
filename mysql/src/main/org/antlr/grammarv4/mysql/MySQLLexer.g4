@@ -308,6 +308,11 @@ USE
    ;
 
 
+AS
+   : 'as' | 'AS'
+   ;
+
+
 IGNORE
    : 'ignore' | 'IGNORE'
    ;

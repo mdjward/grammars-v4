@@ -25,7 +25,7 @@ table_alias
    ;
 
 column_name
-   : ( ( schema_name DOT )? ID DOT )? ( ID | ASTERISK ) ( column_name_alias )? | ( table_alias DOT )? ( ID | ASTERISK) | USER_VAR ( column_name_alias )?
+   : ( ( schema_name DOT )? table_alias ALL_FIELDS )? | ( ( schema_name DOT )? table_alias DOT )? ID ( ( AS )? column_name_alias )?  | ( table_alias DOT )? ( ID | ASTERISK ) | USER_VAR ( column_name_alias )?
    ;
 
 column_name_alias
@@ -137,7 +137,7 @@ table_factor4
    ;
 
 table_atom
-   : ( table_name ( partition_clause )? ( table_alias )? ( index_hint_list )? ) | ( subquery subquery_alias ) | ( LPAREN table_references RPAREN ) | ( OJ table_reference LEFT OUTER JOIN table_reference ON expression )
+   : ( table_name ( partition_clause )? ( ( AS )? table_alias )? ( index_hint_list )? ) | ( subquery ( AS )? subquery_alias ) | ( LPAREN table_references RPAREN ) | ( OJ table_reference LEFT OUTER JOIN table_reference ON expression )
    ;
 
 join_clause
