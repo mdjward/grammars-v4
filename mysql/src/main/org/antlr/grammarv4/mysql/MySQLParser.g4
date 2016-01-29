@@ -13,7 +13,7 @@ schema_name
    ;
 
 select_clause
-   : SELECT column_list_clause ( FROM table_references )? ( where_clause )? ( group_by_clause )? ( limit_clause )? ( set_operation )? ( SEMI )?
+   : SELECT column_list_clause ( FROM table_references )? ( where_clause )? ( group_by_clause )? ( order_by_clause )? ( limit_clause )? ( set_operation )? ( SEMI )?
    ;
 
 table_name
@@ -97,7 +97,7 @@ element_content
    ;
 
 case_statement
-   : CASE ( element )? ( WHEN ( element | expression ) THEN element )+ ( ELSE element ) END
+   : CASE ( element )? ( WHEN ( element | expression ) THEN element )+ ( ELSE element )? END
    ;
 
 function_call
@@ -218,6 +218,10 @@ subquery_content
 
 group_by_clause
    : GROUP BY column_list_clause (having_clause)?
+   ;
+
+order_by_clause
+   : ORDER BY column_list_clause
    ;
 
 having_clause
