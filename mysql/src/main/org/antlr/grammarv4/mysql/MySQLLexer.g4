@@ -323,6 +323,36 @@ AS
    ;
 
 
+DISTINCT
+   : 'DISTINCT'
+   ;
+
+
+CASE
+   : 'CASE'
+   ;
+
+
+WHEN
+   : 'WHEN'
+   ;
+
+
+THEN
+   : 'THEN'
+   ;
+
+
+ELSE
+   : 'ELSE'
+   ;
+
+
+END
+   : 'END'
+   ;
+
+
 IGNORE
    : 'ignore' | 'IGNORE'
    ;
@@ -363,6 +393,16 @@ ON
    ;
 
 
+UNION
+   : 'UNION'
+   ;
+
+
+INTERSECT
+   : 'INTERSECT'
+   ;
+
+
 INT
    : [0-9]+
    ;
@@ -389,7 +429,7 @@ USER_VAR
 
 
 SINGLE_QUOTED_STRING
-   : '\'' ( ~ '"')* '\''
+   : '\'' ( ~ '\'')* '\''
    ;
 
 

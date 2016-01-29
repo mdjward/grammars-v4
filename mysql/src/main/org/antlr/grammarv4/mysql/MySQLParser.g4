@@ -5,7 +5,7 @@ options
    { tokenVocab = MySQLLexer; }
 
 stat
-   : select_clause+
+   : LPAREN stat RPAREN | ( select_clause )+
    ;
 
 schema_name
@@ -13,7 +13,7 @@ schema_name
    ;
 
 select_clause
-   : SELECT column_list_clause ( FROM table_references )? ( where_clause )? ( group_by_clause )? ( limit_clause )? ( SEMI )?
+   : SELECT column_list_clause ( FROM table_references )? ( where_clause )? ( group_by_clause )? ( limit_clause )? ( set_operation )? ( SEMI )?
    ;
 
 table_name
@@ -24,8 +24,12 @@ table_alias
    : ID
    ;
 
+column_ref
+   : (DISTINCT)? column_name
+   ;
+
 column_name
-   : ( ( schema_name DOT )? table_alias ALL_FIELDS )? | ( ( schema_name DOT )? table_alias DOT )? ID ( ( AS )? column_name_alias )?  | ( table_alias DOT )? ( ID | ASTERISK ) | USER_VAR ( column_name_alias )?
+   : ( ( schema_name DOT )? table_alias ALL_FIELDS )? | ( ( schema_name DOT )? table_alias DOT )? ID  | ( table_alias DOT )? ( ID | ASTERISK ) | USER_VAR
    ;
 
 column_name_alias
@@ -37,11 +41,15 @@ index_name
    ;
 
 column_list
-   : LPAREN column_name ( COMMA column_name )* RPAREN
+   : LPAREN column_expr ( COMMA column_expr )* RPAREN
    ;
 
 column_list_clause
-   : column_name ( COMMA column_name )*
+   : column_expr ( COMMA column_expr )*
+   ;
+
+column_expr
+   : ( DISTINCT )? element ( ( AS )? column_name_alias )?
    ;
 
 from_clause
@@ -57,6 +65,10 @@ where_clause
    ;
 
 expression
+   : ( LPAREN expression RPAREN) | expression_content
+   ;
+
+expression_content
    : simple_expression ( expr_op simple_expression )*
    ;
 
@@ -77,7 +89,15 @@ single_quoted_element
    ;
 
 element
-   : USER_VAR | ID | ( '|' ID '|' ) | INT | column_name | parameter | single_quoted_element | function_call
+   : ( LPAREN element RPAREN ) | element_content
+   ;
+
+element_content
+   : USER_VAR | ID | ( '|' ID '|' ) | INT | case_statement | column_ref | parameter | single_quoted_element | function_call
+   ;
+
+case_statement
+   : CASE ( element )? ( WHEN ( element | expression ) THEN element )+ ( ELSE element ) END
    ;
 
 function_call
@@ -117,7 +137,7 @@ is_or_is_not
    ;
 
 simple_expression
-   : left_element relational_op right_element | target_element between_op left_element AND right_element | target_element is_or_is_not NULL
+   : left_element relational_op right_element | target_element between_op left_element AND right_element | target_element is_or_is_not NULL | target_element IN column_list
    ;
 
 table_references
@@ -189,7 +209,11 @@ subquery_alias
    ;
 
 subquery
-   : LPAREN select_clause RPAREN
+   : LPAREN subquery_content RPAREN
+   ;
+
+subquery_content
+   : ( LPAREN subquery_content RPAREN ) | select_clause
    ;
 
 group_by_clause
@@ -202,4 +226,8 @@ having_clause
 
 limit_clause
    : LIMIT INT
+   ;
+
+set_operation
+   : ( UNION | INTERSECT ) ( ALL )? select_clause
    ;
